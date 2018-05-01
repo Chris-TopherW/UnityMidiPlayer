@@ -11,4 +11,6 @@ How to use:
 
 Useful functions:
 MidiPlayer.PlayTrack(MidiTrack, MidiSource); -plays through a midi track
+
+
 MidiPlayer.PlayNext(MidiMessage, MidiSource); -plays a midi note once previous note has finished (calculated via PPQ)
