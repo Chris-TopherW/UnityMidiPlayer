@@ -10,7 +10,13 @@ How to use:
 5) Press play!
 
 Useful functions:
-MidiPlayer.PlayTrack(MidiTrack, MidiSource); -plays through a midi track
+MidiPlayer.PlayTrack(MidiTrack track, MidiSource source); -plays through a midi track
 
 
-MidiPlayer.PlayNext(MidiMessage, MidiSource); -plays a midi note once previous note has finished (calculated via PPQ)
+MidiPlayer.PlayNext(MidiMessage message, MidiSource source); -plays a midi note once previous note has finished (calculated via PPQ)
+
+
+MidiPlayer.PlayScheduled(MidiMessage message, double dsptime); -schedule midi to play at Unity DSPTime (double in seconds)
+
+
+MidiPlayer.Play(MidiMessage p_message); -Plays midi message as soon as possible
