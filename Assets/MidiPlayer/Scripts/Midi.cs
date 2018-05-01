@@ -19,7 +19,6 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
 //THE SOFTWARE.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -28,8 +27,6 @@ namespace cwMidi
 {
     public static class Midi
     {
-        public static int debugLevel;
-
         public static Dictionary<int, string> MessType = new Dictionary<int, string>()
         {
             { 0x0002 , "sequenceNum" },

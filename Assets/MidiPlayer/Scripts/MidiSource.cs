@@ -19,7 +19,6 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
 //THE SOFTWARE.
 
-using System;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -29,11 +28,11 @@ namespace cwMidi
 {
     public class MidiSource : MonoBehaviour
     {
-
         public TextAsset MidiClip;
         private cwMidi.MidiFile midiFile;
         private MidiTrack midiTrack;
-        private long trackPPQAbsolutePos = 0;
+        [HideInInspector]
+        public long trackPPQAbsolutePos = 0;
 
         public bool Mute;
         public bool PlayOnAwake;
@@ -42,7 +41,6 @@ namespace cwMidi
 
         [HideInInspector]
         public double startTimeOffset = 0.0;
-        private double initialOffset = 0.0;
 
         [Range(-1.0f, 1.0f)]
         public float volume = 1.0f;
@@ -56,7 +54,6 @@ namespace cwMidi
         {
             midiFile = new cwMidi.MidiFile(MidiClip);
             midiTrack = new MidiTrack();
-            if (Midi.debugLevel > 3) midiFile.printCookedMidiFile();
         }
 
         void Start()
@@ -67,8 +64,6 @@ namespace cwMidi
                 Channel = 1;
             }
             if (PlayOnAwake) Play();
-
-            initialOffset = AudioSettings.dspTime * 1000;
         }
 
         private void Play()
@@ -79,16 +74,6 @@ namespace cwMidi
                 MidiPlayer.PlayTrack(midiFile.getMidiTrack(i), this);
             }
             MidiPlayer.reorderQueue();
-        }
-
-        public long getTrackPPQAbsolutePos()
-        {
-            return trackPPQAbsolutePos;
-        }
-
-        public void setTrackPPQAbsolutePos(long p_pos)
-        {
-            trackPPQAbsolutePos = p_pos;
         }
     }
 }

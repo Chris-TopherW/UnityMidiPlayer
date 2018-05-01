@@ -62,8 +62,6 @@ namespace cwMidi
 
         public static void Play(MidiMessage p_message)
         {
-            if(Midi.debugLevel > 4) Debug.Log("Add note to play " + p_message.getByteOne()); 
-
             PortMidi.midiEvent(p_message.getStatusByte(), p_message.getByteOne(), p_message.getByteTwo(), 0);
         }
 
@@ -77,20 +75,18 @@ namespace cwMidi
 
         public static void PlayNext(MidiMessage p_message, MidiSource p_source)
         {
-            if (Midi.debugLevel > 4) Debug.Log("Add note to play " + p_message.getByteOne() + " " + p_message.getByteTwo() + " at time: " + p_message.getAbsTimeStamp());
             p_message.noteSource = p_source;
             messOutBuff.Add(p_message);
             if (p_message.getOwnerTrack() != null)
-                p_source.setTrackPPQAbsolutePos(p_message.getAbsTimeStamp()); //this sets write head for ppq
+                p_source.trackPPQAbsolutePos = p_message.getAbsTimeStamp(); //this sets write head for ppq
         }
 
         public static void PlayTrack(MidiTrack p_track, MidiSource p_source)
         {
-            p_source.setTrackPPQAbsolutePos(0); 
+            p_source.trackPPQAbsolutePos = 0;
             long accumulatedTrackLenPPQ = 0;
             for (int _notes = 0; _notes < p_track.getNumNotes(); _notes++)
             {
-                //hmm, not quite...
                 MidiMessage nextNote = p_track.getNote(_notes);
                 PlayNext(nextNote, p_source);
                 accumulatedTrackLenPPQ += nextNote.getPPQ();
@@ -99,7 +95,6 @@ namespace cwMidi
 
         public static void Update()
         {
-
             double currentTime = (AudioSettings.dspTime) * 1000.0;
             if(messOutBuff.Count > 0)
             {
@@ -110,7 +105,7 @@ namespace cwMidi
                 while (msUntilEvent < updateLookAhead && messOutBuff.Count > 0)
                 {
                     long msOffset = (long)(msUntilEvent);
-                    if (msOffset < 0) msOffset = 0; //should catch any rogue startup notes
+                    if (msOffset < 0) msOffset = 0; //catch any rogue startup notes
                     
                     MidiMessage p_message = messOutBuff[0];
                     messOutBuff.RemoveAt(0);
