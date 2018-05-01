@@ -1,5 +1,6 @@
 # UnityMidiPlayer
 Midi file player for unity. Allows import of type zero and one midi files and playing them via midi outputs. Also provides code for creating procedural music using midi.
+
 Some older midi features such as embedded lyrics in midi tracks are not supported by this tool, and trying to import them will probably cause an error. (I'll get around to implementing the weird windey bit of the standard one of these days)
 
 How to use:
