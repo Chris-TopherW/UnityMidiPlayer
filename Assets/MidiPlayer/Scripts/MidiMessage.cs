@@ -88,6 +88,7 @@ namespace cwMidi
         public void setAbsTimestamp(long p_timestamp) { absoluteTimeStamp = p_timestamp; }
         public void setOwnerTrack(MidiTrack p_owner) { ownerTrack = p_owner; }
         public byte[] getMessageAsBytes() { return messageAsBytes; }
+        public void setChannel(int p_channel) { channel = p_channel; }
         public ushort getNumBytes() { return (ushort)messageAsBytes.Length; }
         public int getByteOne() { return controlByte1; }
         public int getByteTwo() { return controlByte2; }
