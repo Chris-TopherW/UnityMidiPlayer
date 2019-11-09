@@ -21,3 +21,5 @@ MidiPlayer.PlayScheduled(MidiMessage message, double dsptime); -schedule midi to
 
 
 MidiPlayer.Play(MidiMessage p_message); -Plays midi message as soon as possible
+
+Warning: this code was part of my grad research in 2016 and is a dumpster fire, enter at your own peril. 
